@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @project Assessment: Basic Programming Concepts: Rock, Paper, Scissors
  * 
  * @description This is the class from which Rock, Paper, Scissors game objects are instantiate from
- * Implemented below are all the needed methods for users to create anr play a game of Rock, Paper, Scissors
+ * Implemented below are all the needed methods for users to create and play a game of Rock, Paper, Scissors
  * through the class' defined interface (i.e. getters, setters, and methods)
  */
 
