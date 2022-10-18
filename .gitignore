@@ -36,6 +36,15 @@ gradle-app.setting
 !gradle-wrapper.jar
 
 ##############################
+## Ant
+build.xml
+manifest.mf
+build-impl.xml
+genfiles.properties
+project.properties
+project.xml
+
+##############################
 ## IntelliJ
 ##############################
 out/
@@ -83,3 +92,4 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+/Ungraded_Work/Code_Along_Class_Roster/ClassRoster/nbproject/private/
