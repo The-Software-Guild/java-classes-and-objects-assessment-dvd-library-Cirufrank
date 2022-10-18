@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Cirũ Franklin (she/they), Software Engineer
  * @course DI002 Full Stack Development Using Java and React (2210)
- * @project Assessment: Basic Programming Concepts: Rock, Paper, Scissors
+ * @project Exercise: Refactor into Objects
  * 
  * @description This is a class of static Helper methods for those implementing the
  * App to use in order to help keep code DRY

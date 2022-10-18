@@ -11,9 +11,9 @@ import java.util.Scanner;
  *
  * @author Cirũ Franklin (she/they), Software Engineer
  * @course DI002 Full Stack Development Using Java and React (2210)
- * @project Assessment: Basic Programming Concepts: Rock, Paper, Scissors
+ * @project Exercise: Refactor into Objects
  * 
- * @description This is the class from which Rock, Paper, Scissors game objects are instantiate from
+ * @description This is the class from which Rock, Paper, Scissors game objects are instantiated from
  * Implemented below are all the needed methods for users to create and play a game of Rock, Paper, Scissors
  * through the class' defined interface (i.e. getters, setters, and methods)
  */

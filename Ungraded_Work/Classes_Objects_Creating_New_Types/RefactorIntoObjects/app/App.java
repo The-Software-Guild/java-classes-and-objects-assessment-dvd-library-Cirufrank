@@ -7,7 +7,15 @@ package com.mycompany.app;
 
 /**
  *
- * @author ciruf
+ * @author Cirũ Franklin (she/they), Software Engineer
+ * @course DI002 Full Stack Development Using Java and React (2210)
+ * @project Exercise: Refactor into Objects
+ * 
+ * @description This is a program that allows users to play Rock, Paper, Scissors.
+ * If the user inputs invalid input the program will continue to prompt them until valid input is entered
+ * The program asks them for the number of rounds they'd like to play and this can be between 10 and 1 inclusive
+ * Then the program keeps track of the current rounds and displays the number of computer wins and user wins
+ * The program continues until the total number of rounds have been played
  */
 public class App {
     public static void main(String[] args) {
