@@ -18,13 +18,18 @@ package com.we.classroster.controller;
  * the needed action based on the user's menu choice
  */
 
+import com.we.classroster.dao.ClassRosterDao;
+import com.we.classroster.dao.ClassRosterDaoFileImpl;
+import com.we.classroster.dto.Student;
 import com.we.classroster.ui.UserIO;
 import com.we.classroster.ui.UserIOConsoleImpl;
 import com.we.classroster.ui.ClassRosterView;
+import java.util.List;
 
 public class ClassRosterController {
     private UserIO io = new UserIOConsoleImpl();
     private ClassRosterView view = new ClassRosterView();
+    private ClassRosterDao dao = new ClassRosterDaoFileImpl();
     
     public void run() {
         boolean keepGoing = true;
@@ -34,16 +39,16 @@ public class ClassRosterController {
             
             switch(menuSelection) {
                 case 1:
-                    io.print("LIST STUDENTS");
+                    listStudents();
                     break;
                 case 2:
-                    io.print("CREATE STUDENT");
+                    createStudent();
                     break;
                 case 3:
-                    io.print("VIEW STUDENT");
+                    viewStudent();
                     break;
                 case 4:
-                    io.print("REMOVE STUDENT");
+                    removeStudent();
                     break;
                 case 5:
                     keepGoing = false;
@@ -56,5 +61,28 @@ public class ClassRosterController {
     }
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
+    }
+    private void createStudent() {
+        view.displayCreateStudentBanner();
+        Student newStudent = view.getNewStudentInfo();
+        dao.addStudent(newStudent.getStudentId(), newStudent);
+        view.displayCreateSuccessBanner();
+    }
+    private void listStudents() {
+        view.displayDisplayAllBanner();
+        List<Student> studentList = dao.getAllStudents();
+        view.displayStudentList(studentList); 
+    }
+    private void viewStudent() {
+        view.displayDisplaySudentBanner();
+        String studentId = view.getStudentIdChoice();
+        Student student = dao.getStudent(studentId);
+        view.displayStudent(student);
+    }
+    private void removeStudent() {
+        view.displayRemoveStudentBanner();
+        String studentId = view.getStudentIdChoice();
+        Student removedStudent = dao.removeStudent(studentId);
+        view.displayRemoveResult(removedStudent);
     }
 }

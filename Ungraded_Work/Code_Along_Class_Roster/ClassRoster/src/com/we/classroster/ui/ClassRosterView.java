@@ -6,8 +6,17 @@ package com.we.classroster.ui;
 
 /**
  *
- * @author ciruf
+ * @author Cirũ Franklin (she/they), Software Engineer
+ * @course DI002 Full Stack Development Using Java and React (2210)
+ * @project Code Along: Class Roster
+ * 
+ * @description This class acts of the view for our application and 
+ * is responsible for the user interface the our users are 
+ * able to accomplish their stories through
  */
+
+import com.we.classroster.dto.Student;
+import java.util.List;
 
 public class ClassRosterView {
     private UserIO io = new UserIOConsoleImpl();
@@ -23,5 +32,65 @@ public class ClassRosterView {
             return io.readInt("Please"
                     + " select from the above "
                     + "choices.", 1, 5);
+    }
+    public Student getNewStudentInfo() {
+        String studentId = io.readString("Please enter Student ID");
+        String firstName = io.readString("Please enter First Name");
+        String lastName = io.readString("Please enter Last Name");
+        String cohort = io.readString("Please enter Cohort");
+        Student currentStudent = new Student(studentId);
+        currentStudent.setFirstName(firstName);
+        currentStudent.setLastName(lastName);
+        currentStudent.setCohort(cohort);
+        return currentStudent;
+    }
+    public void displayCreateStudentBanner() {
+        io.print("=== Create Student ===");
+    }
+    public void displayCreateSuccessBanner() {
+        io.readString("Student successfully created. "
+                + "Please hit enter to continue");
+    }
+    public void displayStudentList(List<Student> studentList) {
+        for (Student currentStudent: studentList) {
+            String studentInfo = String.format("#%s : %s %s", 
+                    currentStudent.getStudentId(),
+                    currentStudent.getFirstName(),
+                    currentStudent.getLastName());
+            io.print(studentInfo);
+        }
+        io.readString("Please hit enter to continue");
+    }
+    public void displayDisplayAllBanner() {
+        io.print("=== Display All Students ===");
+    }
+    public void displayDisplaySudentBanner() {
+        io.print("=== Display Student");
+    }
+    public String getStudentIdChoice() {
+        return io.readString("Please enter the student ID");
+    }
+    public void displayStudent(Student student) {
+        if (student != null) {
+            io.print(student.getStudentId());
+            io.print(student.getFirstName() + " " +
+                    student.getLastName());
+            io.print(student.getCohort());
+            io.print("");
+        } else {
+            io.print("No such student");
+        }
+        io.readString("Please hit enter to continue");
+    }
+    public void displayRemoveStudentBanner() {
+        io.print("=== Remove Student ===");
+    }
+    public void displayRemoveResult(Student studentRecord) {
+        if (studentRecord != null) {
+            io.print("Student sucessfully removed.");
+        } else {
+            io.print("No such student.");
+        }
+        io.readString("Please hit enter to continue");
     }
 }
