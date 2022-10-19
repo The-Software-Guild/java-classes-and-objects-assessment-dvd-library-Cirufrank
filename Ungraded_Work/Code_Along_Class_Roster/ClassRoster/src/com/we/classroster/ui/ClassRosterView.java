@@ -19,7 +19,11 @@ import com.we.classroster.dto.Student;
 import java.util.List;
 
 public class ClassRosterView {
-    private UserIO io = new UserIOConsoleImpl();
+    private UserIO io;
+    
+    public ClassRosterView(UserIO io) {
+        this.io = io;
+    }
     
     public int printMenuAndGetSelection() {
         io.print("Main Menu");
@@ -92,5 +96,15 @@ public class ClassRosterView {
             io.print("No such student.");
         }
         io.readString("Please hit enter to continue");
+    }
+    public void displayExitBanner() {
+        io.print("Good Bye!!!");
+    }
+    public void displayUnknownCommandBanner() {
+        io.print("Unknown Command!!!");
+    }
+    public void displayErrorMessage(String message) {
+        io.print("=== ERROR ===");
+        io.print(errorMsg);
     }
 }
