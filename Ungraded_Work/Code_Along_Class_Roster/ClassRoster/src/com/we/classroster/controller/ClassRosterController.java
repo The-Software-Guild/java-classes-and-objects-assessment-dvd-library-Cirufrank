@@ -58,6 +58,7 @@ public class ClassRosterController {
                     break;
                 default:
                     unknownCommand();
+                    System.out.println("Unknown");
                 }
             }
             exitMessage();
