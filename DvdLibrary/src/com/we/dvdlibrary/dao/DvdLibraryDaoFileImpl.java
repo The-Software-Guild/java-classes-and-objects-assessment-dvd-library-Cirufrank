@@ -23,15 +23,16 @@ import java.util.Set;
  * @course DI002 Full Stack Development Using Java and React (2210)
  * @project Assessment: DVD Library
  *
- * @description This class acts as the file implementation of the DVD Library's data access object
+ * @description This class acts as the file implementation of the DVD Library's data access object interface
  * This class provides methods that will allow users to add, edit, update, delete, and retrieve DVDs 
  * from the library
  */
 
 public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     private Map<String, Dvd> dvds = new HashMap<>();
-    public static final String DVD_LIBRARY_FILE = "dvd_library.txt";
-    public static final String DELIMITER = "::";
+    public static final String DVD_LIBRARY_FILE = "dvd_library.txt", DELIMITER = "::",
+            COULD_NOT_LOAD_DVDS_INTO_MEMORY_MSG = "-_- Could not load DVD Library data into memory. ",
+            COULD_NOT_SAVE_DVD_DATA_MSG = "Could not save DVD data";
     
     @Override
     public Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException {
@@ -73,6 +74,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
     
     @Override
     public ArrayList<Dvd> getDvdsByTitle(String dvdTitle) throws DvdLibraryDaoException {
+        //(Case insensitive) Check to see if any DVDs in our library contain the sequence of
+        //characters input by the user (dvdTitle), and if so, return those DVDs to the called of this method
         loadDvdLibrary();
         final ArrayList<Dvd> matchingDvds = new ArrayList<>();
         final String lowerCaseTitle = lowerCase(dvdTitle);
@@ -91,6 +94,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         return string.toLowerCase().intern();
     }
     public Dvd unmarshallDvd(String dvdAsText) {
+        //Translate a text representation of a Dvd object into a Dvd object and 
+        //return that Dvd object
         final int TITLE_INDEX = 0, RELEASE_DATE_INDEX = 1, 
                 MPAA_RATING_INDEX = 2, DIRECTORS_NAME_INDEX = 3, 
                 STUDIO_INDEX = 4,
@@ -108,6 +113,8 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         
     }
     private void loadDvdLibrary() throws DvdLibraryDaoException {
+        //Open the Dvd library file responsile for stroage persistence and 
+        //load the Dvd objects into memory;
         Scanner scanner;
         try {
             scanner = new Scanner(
@@ -115,7 +122,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
             new FileReader(DVD_LIBRARY_FILE)));
         } catch (FileNotFoundException error) {
             throw new DvdLibraryDaoException(
-            "-_- Could not load DVD Library data into memory. ", error);
+            COULD_NOT_LOAD_DVDS_INTO_MEMORY_MSG, error);
         }
         
         String currentLine;
@@ -128,6 +135,7 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
         scanner.close();
     }
     private String marshallDvd(Dvd aDvd) {
+         //Translate a Dvd object into text to be stored within a file
          String dvdAsText = "";
          dvdAsText += aDvd.getDvdTitle() + DELIMITER;
          dvdAsText += aDvd.getReleaseDate() + DELIMITER;
@@ -138,13 +146,15 @@ public class DvdLibraryDaoFileImpl implements DvdLibraryDao {
          return dvdAsText;
     }
     private void writeDvdLibrary() throws DvdLibraryDaoException {
+        //Translate the Dvd object in memory into text and write this text into 
+        //memory
         PrintWriter out;
         
         try {
             out = new PrintWriter(new FileWriter(DVD_LIBRARY_FILE));
         } catch (IOException error) {
             throw new DvdLibraryDaoException(
-            "Could not save DVD data", error);
+            COULD_NOT_SAVE_DVD_DATA_MSG, error);
         }
         
         String dvdAsText = "";

@@ -15,7 +15,7 @@ import java.util.List;
  * @project Assessment: DVD Library
  *
  * @description This class acts and the view of the DVD Library application 
- * and provides an interface for all methods necessary to display information 
+ * and provides an interface for all fields and methods necessary to display information 
  * to a user
  */
 
@@ -24,6 +24,7 @@ public class DvdLibraryView {
             MENU_BANNER = "=== MENU ===",
             PRESS_ENTER_TO_CONTINUE = "Press enter to continue...",
             GOODBYE_MESSAGE = "=== Goodbye ===",
+            ERROR_BANNER = "=== ERROR ===",
             GET_ALL_DVDS_MENU_OP1 = "1: Get all DVDs",
             ADD_A_NEW_DVD_MENU_OP2 = "2: Add a new DVD",
             SEARCH_FOR_DVDS_MENU_OP3 = "3: Search for DVDs by title",
@@ -38,7 +39,11 @@ public class DvdLibraryView {
             PLEASE_ENTER_CHOICE_MESSAGE = "Please select from the above choices.",
             ADD_DVD_SUCCESS_MESSAGE = "=== Successfully added DVD ===",
             UPDATE_DVD_SUCCESS_MESSAGE = "=== Successfully updated the DVD ===",
-            REMOVE_DVD_SUCCESS_MESSAGE = "=== Successfully removed the DVD ===";
+            REMOVE_DVD_SUCCESS_MESSAGE = "=== Successfully removed the DVD ===",
+            CHOICE_NOT_FOUND_MESSAGE = "Choice not found.",
+            DVD_INFORMATION_STRING_FORMAT = "Title: %s | Release Date:"
+                    + " %s | MPAA Rating: %s | Director's Name: %s | "
+                    + "Studio: %s | Notes: %s ";
     final private int MIN_VALID_CHOICE = 1, MAX_VALID_CHOICE = 7;
             
     UserIO io;
@@ -76,18 +81,22 @@ public class DvdLibraryView {
         return userChoiceNumber;
     }
     public String getDvdTitle() {
-        String dvdTitle = io.readString("Please enter the title "
-                + "of the DVD");
+        final String ENTER_DVD_TITLE_PROMPT = "Please enter the title of the DVD";
+        String dvdTitle = io.readString(ENTER_DVD_TITLE_PROMPT);
         return dvdTitle;
     }
     public void displayMenuChoice(int menuChoice) {
-        io.print("You chose: " + menuChoice);
+        final String YOU_CHOSE_STRING = "You chose: ";
+        io.print(YOU_CHOSE_STRING + menuChoice);
     }
     public void printNoDvdsFoundMessage() {
         io.print(NO_DVDS_FOUND_MESSAGE);
     }
     public void printNoExactMatchFoundMessage() {
         io.print(NO_EXACT_MATCH_MESSAGE);
+    }
+    public void printChoiceNotFoundMessage() {
+        io.print(CHOICE_NOT_FOUND_MESSAGE);
     }
     public void printUpdateDvdSucceessMessage() {
         io.print(UPDATE_DVD_SUCCESS_MESSAGE);
@@ -102,13 +111,20 @@ public class DvdLibraryView {
         io.print(DVD_NOT_REMOVED_MESSAGE);
     }
     public Dvd getNewDvdInfo() {
+        final String ENTER_DVD_TITLE_PROMPT = "Please enter DVD title",
+                ENTER_RELEASE_DATE_PROMPT = "Please enter DVD release date",
+                ENTER_MPAA_RATING_PROMPT = "Please enter MPAA rating",
+                ENTER_DIRECTOR_NAME_PROMPT = "Please enter director's name",
+                ENTER_STUDIO_PROMPT = "Please enter studio",
+                ENTER_USER_NOTES_PROMPT = "Please enter your rating and/or notes for the DVD";
+        
         final Dvd newDvd = new Dvd();
-        String dvdTitle = io.readString("Please enter DVD title");
-        String releaseDate = io.readString("Please enter DVD release date");
-        String mpaaRating = io.readString("Please enter MPAA rating");
-        String directorsName = io.readString("Please enter director's name");
-        String studio = io.readString("Please enter studio");
-        String notes = io.readString("Please enter your rating and/or notes for the DVD");
+        String dvdTitle = io.readString(ENTER_DVD_TITLE_PROMPT);
+        String releaseDate = io.readString(ENTER_RELEASE_DATE_PROMPT);
+        String mpaaRating = io.readString(ENTER_MPAA_RATING_PROMPT);
+        String directorsName = io.readString(ENTER_DIRECTOR_NAME_PROMPT);
+        String studio = io.readString(ENTER_STUDIO_PROMPT);
+        String notes = io.readString(ENTER_USER_NOTES_PROMPT);
         newDvd.setDvdTitle(dvdTitle);
         newDvd.setReleaseDate(releaseDate);
         newDvd.setMpaaRating(mpaaRating);
@@ -118,34 +134,44 @@ public class DvdLibraryView {
         return newDvd;
     } 
     public Dvd getDvdUpdateFields(Dvd dvd) {
-        boolean updateTheReleaseDate = io.readYesOrNo("Would you like to update"
-                + " the DVD's release date?") == "yes";
+        //Ask this user if they;d like to update a field and if so, allow them
+        //to do so. Then return the updated Dvd object once all updates have been
+        //made
+        final String UPDATE_RELEASE_DATE_PROMPT = "Would you like to update the DVD's release date?",
+                ENTER_DVD_RELEASE_DATE_PROMPT = "Please enter DVD release date",
+                UPDATE_MPAA_RATING_PROMPT = "Would you like to update the DVD's MPAA Rating?",
+                ENTER_MPAA_RATING_PROMPT = "Please enter MPAA rating",
+                UPDATE_DIRECTOR_NAME_PROMPT = "Would you like to update the DVD's director's name?",
+                ENTER_DIRECTOR_NAME_PROMPT = "Please enter director's name",
+                UPDATE_STUDIO_PROMPT = "Would you like to update the DVD's studio?",
+                ENTER_STUDIO_PROMPT = "Please enter studio",
+                UPDATE_USER_NOTES_PROMPT = "Would you like to update your notes/review of the DVD?",
+                ENTER_USER_NOTES_PROMPT = "Please enter your rating and/or notes for the DVD",
+                YES_ANSWER = "yes";
+        
+        boolean updateTheReleaseDate = io.readYesOrNo(UPDATE_RELEASE_DATE_PROMPT) == YES_ANSWER;
         if (updateTheReleaseDate) {
-            String releaseDate = io.readString("Please enter DVD release date");
+            String releaseDate = io.readString(ENTER_DVD_RELEASE_DATE_PROMPT);
             dvd.setReleaseDate(releaseDate);
         }
-        boolean updateTheMpaaRating = io.readYesOrNo("Would you like to update"
-                + " the DVD's MPAA Rating?") == "yes";
+        boolean updateTheMpaaRating = io.readYesOrNo(UPDATE_MPAA_RATING_PROMPT) == YES_ANSWER;
         if (updateTheMpaaRating) {
-            String mpaaRating = io.readString("Please enter MPAA rating");
+            String mpaaRating = io.readString(ENTER_MPAA_RATING_PROMPT);
             dvd.setMpaaRating(mpaaRating);
         }
-        boolean updateTheDirectorsName = io.readYesOrNo("Would you like to update"
-                + " the DVD's director's name?") == "yes";
+        boolean updateTheDirectorsName = io.readYesOrNo(UPDATE_DIRECTOR_NAME_PROMPT) == YES_ANSWER;
         if (updateTheDirectorsName) {
-            String directorsName = io.readString("Please enter director's name");
+            String directorsName = io.readString(ENTER_DIRECTOR_NAME_PROMPT);
             dvd.setDirectorsName(directorsName);
         }
-        boolean updateTheStudio = io.readYesOrNo("Would you like to update"
-                + " the DVD's studio?") == "yes";
+        boolean updateTheStudio = io.readYesOrNo(UPDATE_STUDIO_PROMPT) == YES_ANSWER;
         if (updateTheStudio) {
-            String studio = io.readString("Please enter studio");
+            String studio = io.readString(ENTER_STUDIO_PROMPT);
             dvd.setStudio(studio);
         }
-        boolean updateTheNotes = io.readYesOrNo("Would you like to update you notes/"
-                + "review of the DVD?") == "yes";
+        boolean updateTheNotes = io.readYesOrNo(UPDATE_USER_NOTES_PROMPT) == YES_ANSWER;
         if (updateTheNotes) {
-            String notes = io.readString("Please enter your rating and/or notes for the DVD");
+            String notes = io.readString(ENTER_USER_NOTES_PROMPT);
             dvd.setUserNotes(notes);
         }
         return dvd;
@@ -156,9 +182,9 @@ public class DvdLibraryView {
         }
     }
     public void displayDvd(Dvd dvd) {
-        String dvdInformation = String.format("Title: %s | Release Date:"
-                    + " %s | MPAA Rating: %s | Director's Name: %s | "
-                    + "Studio: %s | Notes: %s ",
+        //Format the DVD information display and display this information
+        //to users
+        String dvdInformation = String.format(DVD_INFORMATION_STRING_FORMAT,
                     dvd.getDvdTitle(),
                     dvd.getReleaseDate(),
                     dvd.getMpaaRating(),
@@ -168,10 +194,7 @@ public class DvdLibraryView {
           io.print(dvdInformation);
     }
     public void displayErrorMessage(String errorMessage) {
-        io.print("=== ERROR ===");
+        io.print(ERROR_BANNER);
         io.print(errorMessage);
-    }
-    public void print(String message) {
-        io.print(message);
     }
 }

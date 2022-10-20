@@ -32,11 +32,18 @@ public class DvdLibraryController {
             SEARCH_FOR_EXACT_DVD_MATCH = 4,
             UPDATE_DVD = 5,
             DELETE_DVD = 6,
-            EXIT_LIBRARY = 7;
+            EXIT_LIBRARY = 7,
+            NO_DVDS = 0;
+    //This constructor allows us to initialize our view and dao fields to their 
+    //chosen implementations whenever we intitialize a DvdLibraryController instance within the 
+    //App.java file's main method. This saves us from hard-coding our view and dao's
+    //dependencies and allows us to take advantage of dependency injection's benefits
     public DvdLibraryController(UserIO myIO, DvdLibraryDao myDAO) {
         this.view = new DvdLibraryView(myIO);
         this.dao = myDAO;
     }
+    //This is the method called within our App.java file's main method and controller the 
+    //main flow of our application
     public void run() {
         view.printWelcomeBanner();
         try {
@@ -66,8 +73,11 @@ public class DvdLibraryController {
                 case EXIT_LIBRARY:
                     usingMenu = false;
                     break;
+                //Since chice must be within specified range of options, this
+                //default case will never run. This is just here incase code 
+                //is ever refactored to use it
                 default:
-                    view.print("Choice not found");
+                    view.printChoiceNotFoundMessage();
                }
             }
         
@@ -78,7 +88,7 @@ public class DvdLibraryController {
     }
     private void listDvds() throws DvdLibraryDaoException {
         final ArrayList<Dvd> allDvds = dao.getAllDvds();
-        if (allDvds.size() == 0) view.printNoDvdsFoundMessage();
+        if (allDvds.size() == NO_DVDS) view.printNoDvdsFoundMessage();
         else view.displayDvds(allDvds);
         view.readAndPrintPressEnterToContineMessage();
     }
@@ -91,7 +101,7 @@ public class DvdLibraryController {
     private void searchForDvdsByTitle() throws DvdLibraryDaoException {
         final String dvdTitle = view.getDvdTitle();
         final ArrayList<Dvd> matchingDvds = dao.getDvdsByTitle(dvdTitle);
-        if (matchingDvds == null) view.printNoDvdsFoundMessage();
+        if (matchingDvds.size() == NO_DVDS) view.printNoDvdsFoundMessage();
         else view.displayDvds(matchingDvds);
         view.readAndPrintPressEnterToContineMessage();
     }

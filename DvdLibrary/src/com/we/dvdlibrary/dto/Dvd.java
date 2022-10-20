@@ -10,7 +10,10 @@ package com.we.dvdlibrary.dto;
  * @course DI002 Full Stack Development Using Java and React (2210)
  * @project Assessment: DVD Library
  * 
- * @description This class acts as the DTO of the application
+ * @description This class acts as the DTO of the application and defines the members
+ * that will be available to each DVD object instance. This class also defines the
+ * public methods that will be available for the model, view, and controller components of our
+ * application to utilize/interface with
  */
 public class Dvd {
     private String dvdTitle, releaseDate, mpaaRating, directorsName, studio, userNotes;

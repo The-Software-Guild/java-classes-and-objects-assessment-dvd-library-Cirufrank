@@ -12,9 +12,10 @@ package com.we.dvdlibrary.dao;
  *
  * @description This class is responsible for our application-specific exceptions 
  * that will help up uphold the OOP standard of encapsulation.
- * We extend the Exception class so that out Exception inherits
- * the method and properties of that super class as so that our
- * Exception is checked
+ * We extend the Exception class so that our Exception inherits
+ * the methods and properties of that super class and so our Exception is 
+ * checked (since we want to make sure to require the handling of these exceptions
+ * if they are thrown)
  */
 public class DvdLibraryDaoException extends Exception {
     public DvdLibraryDaoException(String message) {
