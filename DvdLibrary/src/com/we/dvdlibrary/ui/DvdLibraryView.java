@@ -72,13 +72,16 @@ public class DvdLibraryView {
         int userChoiceNumber = io.readInt(PLEASE_ENTER_CHOICE_MESSAGE, 
                 MIN_VALID_CHOICE,
                 MAX_VALID_CHOICE);
-        io.print("You chose: " + userChoiceNumber);
+        displayMenuChoice(userChoiceNumber);
         return userChoiceNumber;
     }
     public String getDvdTitle() {
         String dvdTitle = io.readString("Please enter the title "
                 + "of the DVD");
         return dvdTitle;
+    }
+    public void displayMenuChoice(int menuChoice) {
+        io.print("You chose: " + menuChoice);
     }
     public void printNoDvdsFoundMessage() {
         io.print(NO_DVDS_FOUND_MESSAGE);
@@ -163,6 +166,10 @@ public class DvdLibraryView {
                     dvd.getStudio(),
                     dvd.getUserNotes());
           io.print(dvdInformation);
+    }
+    public void displayErrorMessage(String errorMessage) {
+        io.print("=== ERROR ===");
+        io.print(errorMessage);
     }
     public void print(String message) {
         io.print(message);

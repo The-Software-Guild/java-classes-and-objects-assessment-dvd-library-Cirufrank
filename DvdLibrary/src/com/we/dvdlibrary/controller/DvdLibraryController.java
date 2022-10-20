@@ -18,6 +18,7 @@ package com.we.dvdlibrary.controller;
 import com.we.dvdlibrary.ui.DvdLibraryView;
 import com.we.dvdlibrary.ui.UserIO;
 import com.we.dvdlibrary.dao.DvdLibraryDao;
+import com.we.dvdlibrary.dao.DvdLibraryDaoException;
 import com.we.dvdlibrary.dto.Dvd;
 import java.util.ArrayList;
 
@@ -26,71 +27,82 @@ public class DvdLibraryController {
     DvdLibraryDao dao;
     private boolean usingMenu = true;
     private int currentChoice = 0;
+    final private int LIST_ALL_DVDS = 1, ADD_A_DVD = 2, 
+            SEARCH_DVDS_BY_TITLE = 3,
+            SEARCH_FOR_EXACT_DVD_MATCH = 4,
+            UPDATE_DVD = 5,
+            DELETE_DVD = 6,
+            EXIT_LIBRARY = 7;
     public DvdLibraryController(UserIO myIO, DvdLibraryDao myDAO) {
         this.view = new DvdLibraryView(myIO);
         this.dao = myDAO;
     }
     public void run() {
         view.printWelcomeBanner();
-        while (usingMenu) {
+        try {
+            while (usingMenu) {
             view.printMenuBanner();
             view.printMenu();
             currentChoice = view.getMenuChoice();
             switch(currentChoice) {
-                case 1:
+                case LIST_ALL_DVDS:
                     listDvds();
                     break;
-                case 2:
+                case ADD_A_DVD:
                     addDvd();
                     break;
-                case 3:
+                case SEARCH_DVDS_BY_TITLE:
                     searchForDvdsByTitle();
                     break;
-                case 4:
+                case SEARCH_FOR_EXACT_DVD_MATCH:
                     searchForExactMatchDvd();
                     break;
-                case 5:
+                case UPDATE_DVD:
                     updateDvd();
                     break;
-                case 6 :
+                case DELETE_DVD:
                     removeDvd();
                     break;
-                case 7:
+                case EXIT_LIBRARY:
                     usingMenu = false;
                     break;
                 default:
                     view.print("Choice not found");
+               }
             }
-        }
         
-        view.printGoodbyeMessage();
+            view.printGoodbyeMessage();
+        } catch (DvdLibraryDaoException error) {
+            view.displayErrorMessage(error.getMessage());
+        }
     }
-    private void listDvds() {
+    private void listDvds() throws DvdLibraryDaoException {
         final ArrayList<Dvd> allDvds = dao.getAllDvds();
-        view.displayDvds(allDvds);
+        if (allDvds.size() == 0) view.printNoDvdsFoundMessage();
+        else view.displayDvds(allDvds);
         view.readAndPrintPressEnterToContineMessage();
     }
-    private void addDvd() {
+    private void addDvd() throws DvdLibraryDaoException {
         final Dvd newDvd = view.getNewDvdInfo();
         dao.addDvd(newDvd.getDvdTitle(), newDvd);
         view.printAddDvdSuccessMessage();
         view.readAndPrintPressEnterToContineMessage();
     }
-    private void searchForDvdsByTitle() {
+    private void searchForDvdsByTitle() throws DvdLibraryDaoException {
         final String dvdTitle = view.getDvdTitle();
         final ArrayList<Dvd> matchingDvds = dao.getDvdsByTitle(dvdTitle);
         if (matchingDvds == null) view.printNoDvdsFoundMessage();
         else view.displayDvds(matchingDvds);
         view.readAndPrintPressEnterToContineMessage();
     }
-    private void searchForExactMatchDvd() {
+    private void searchForExactMatchDvd() throws DvdLibraryDaoException{
         final String dvdTitle = view.getDvdTitle();
         final Dvd dvd = dao.getDvd(dvdTitle);
         if (dvd == null) view.printNoExactMatchFoundMessage();
         else view.displayDvd(dvd);
         view.readAndPrintPressEnterToContineMessage();
     }
-    private void updateDvd() {
+    private void updateDvd() throws DvdLibraryDaoException {
         final String dvdTitle = view.getDvdTitle();
         final Dvd dvd = dao.getDvd(dvdTitle);
         if (dvd == null) view.printNoDvdsFoundMessage();
@@ -101,7 +113,7 @@ public class DvdLibraryController {
         }
         view.readAndPrintPressEnterToContineMessage();
     }
-    private void removeDvd() {
+    private void removeDvd() throws DvdLibraryDaoException {
         final String dvdTitle = view.getDvdTitle();
         final Dvd removedDvd = dao.removeDvd(dvdTitle);
         if (removedDvd == null) view.printNoDvdsFoundMessage();

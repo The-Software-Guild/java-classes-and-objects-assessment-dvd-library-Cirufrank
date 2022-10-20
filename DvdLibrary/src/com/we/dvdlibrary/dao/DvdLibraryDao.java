@@ -30,20 +30,20 @@ public interface DvdLibraryDao {
      * @return the DVD object previously associated with the given dvdTitle if
      * it exists, null otherwise
      */
-    Dvd addDvd(String dvdTitle, Dvd dvd);
+    Dvd addDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException;
 
-    Dvd removeDvd(String dvdTitle);
+    Dvd removeDvd(String dvdTitle)throws DvdLibraryDaoException;
 
-    Dvd editDvd(String dvdTitle, Dvd dvd);
+    Dvd editDvd(String dvdTitle, Dvd dvd) throws DvdLibraryDaoException;
 
     /**
      * Returns a List of all DVDs in the library.
      *
      * @return List containing all DVDs in the library.
      */
-    ArrayList<Dvd> getAllDvds();
+    ArrayList<Dvd> getAllDvds() throws DvdLibraryDaoException;
 
-    Dvd getDvd(String dvdTitle);
+    Dvd getDvd(String dvdTitle) throws DvdLibraryDaoException;
 
-    ArrayList<Dvd> getDvdsByTitle(String dvdTitle);
+    ArrayList<Dvd> getDvdsByTitle(String dvdTitle) throws DvdLibraryDaoException;
 }
