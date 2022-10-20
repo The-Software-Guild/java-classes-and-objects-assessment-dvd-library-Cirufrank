@@ -15,7 +15,7 @@ package com.we.dvdlibrary.dto;
 public class Dvd {
     private String dvdTitle, releaseDate, mpaaRating, directorsName, studio, userNotes;
     
-    Dvd() {
+    public Dvd() {
         
     }
     
@@ -31,7 +31,7 @@ public class Dvd {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-    public String getMpaaRate() {
+    public String getMpaaRating() {
         return mpaaRating;
     }
     public void setMpaaRating(String mpaaRating) {

@@ -14,6 +14,9 @@ package com.we.dvdlibrary.dao;
  * Library application's DAO/DAOs
  */
 import com.we.dvdlibrary.dto.Dvd;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public interface DvdLibraryDao {
 
@@ -24,7 +27,7 @@ public interface DvdLibraryDao {
      *
      * @param dvdTitle title with which DVD is to be associated
      * @param dvd DVD to be added to the roster
-     * @return the Dvd object previously associated with the given dvdTitle if
+     * @return the DVD object previously associated with the given dvdTitle if
      * it exists, null otherwise
      */
     Dvd addDvd(String dvdTitle, Dvd dvd);
@@ -38,9 +41,9 @@ public interface DvdLibraryDao {
      *
      * @return List containing all DVDs in the library.
      */
-    <List> Dvd getAllDvds();
+    ArrayList<Dvd> getAllDvds();
 
     Dvd getDvd(String dvdTitle);
 
-    <List> Dvd getDvdsByTitle(String dvdTitle);
+    ArrayList<Dvd> getDvdsByTitle(String dvdTitle);
 }

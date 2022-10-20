@@ -17,9 +17,10 @@ package com.we.dvdlibrary;
 
 import com.we.dvdlibrary.ui.UserIOConsoleImpl;
 import com.we.dvdlibrary.controller.DvdLibraryController;
+import com.we.dvdlibrary.dao.DvdLibraryDaoFileImpl;
 public class App {
     public static void main(String[] args) {
-        DvdLibraryController controller = new DvdLibraryController(new UserIOConsoleImpl());
+        DvdLibraryController controller = new DvdLibraryController(new UserIOConsoleImpl(), new DvdLibraryDaoFileImpl());
         controller.run();
         
     }

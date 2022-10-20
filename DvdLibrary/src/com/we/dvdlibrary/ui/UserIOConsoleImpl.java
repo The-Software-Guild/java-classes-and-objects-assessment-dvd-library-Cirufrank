@@ -65,4 +65,12 @@ public class UserIOConsoleImpl implements UserIO {
         
         return integerInput;
     }
+    public String readYesOrNo(String message) {
+        String yesOrNo;
+        do {
+          yesOrNo = readString(message).toLowerCase().intern();
+          if (yesOrNo != "yes" && yesOrNo != "no") print("Invalid input. Please enter yes or no");
+        } while(yesOrNo != "yes" && yesOrNo != "no");
+        return yesOrNo;
+    }
 }
