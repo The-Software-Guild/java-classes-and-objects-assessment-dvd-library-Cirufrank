@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.we.classroster.dao;
+package com.we.classroster.service;
 
 /**
  *
@@ -11,14 +11,15 @@ package com.we.classroster.dao;
  * @project Code Along: Class Roster
  * 
  * @description This class allows us to create a custom exception that
- * will be thrown if any error happen throughout data access within
- * our application
+ * will be thrown if a user tries to add a student with an ID already
+ * existing within the Roster
  */
-public class ClassRosterDaoException extends Exception {
-    public ClassRosterDaoException(String message) {
+public class ClassRosterDuplicateIdException extends Exception {
+    public ClassRosterDuplicateIdException(String message) {
         super(message);
     }
-    public ClassRosterDaoException(String message, Throwable cause) {
+    
+    public ClassRosterDuplicateIdException(String message, Throwable cause) {
         super(message, cause);
     }
 }

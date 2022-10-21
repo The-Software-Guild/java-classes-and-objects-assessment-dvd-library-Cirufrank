@@ -105,6 +105,6 @@ public class ClassRosterView {
     }
     public void displayErrorMessage(String message) {
         io.print("=== ERROR ===");
-        io.print(errorMsg);
+        io.print(message);
     }
 }
