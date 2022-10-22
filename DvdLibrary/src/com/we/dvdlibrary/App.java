@@ -21,7 +21,7 @@ import com.we.dvdlibrary.dao.DvdLibraryDaoFileImpl;
 public class App {
     public static void main(String[] args) {
         //Through the constructors we have specifed within the necessary classes, we
-        //are able to implement dependency injection without our code
+        //are able to implement dependency injection within our code
         DvdLibraryController controller = new DvdLibraryController(new UserIOConsoleImpl(), new DvdLibraryDaoFileImpl());
         controller.run();
         
