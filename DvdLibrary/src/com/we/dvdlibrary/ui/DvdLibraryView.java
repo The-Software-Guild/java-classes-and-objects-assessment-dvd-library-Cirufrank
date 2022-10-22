@@ -134,7 +134,7 @@ public class DvdLibraryView {
         return newDvd;
     } 
     public Dvd getDvdUpdateFields(Dvd dvd) {
-        //Ask this user if they;d like to update a field and if so, allow them
+        //Ask this user if they'd like to update a field and if so, allow them
         //to do so. Then return the updated Dvd object once all updates have been
         //made
         final String UPDATE_RELEASE_DATE_PROMPT = "Would you like to update the DVD's release date?",
