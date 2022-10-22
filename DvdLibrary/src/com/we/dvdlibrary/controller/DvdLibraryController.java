@@ -73,7 +73,7 @@ public class DvdLibraryController {
                 case EXIT_LIBRARY:
                     usingMenu = false;
                     break;
-                //Since chice must be within specified range of options, this
+                //Since choice must be within specified range of options, this
                 //default case will never run. This is just here incase code 
                 //is ever refactored to use it
                 default:
